@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Default test(failed)">
+    <classes>
+      <class name="ESAF.Portal.TestCases.ESAF_LoginTestCase">
+        <methods>
+          <include name="Check_Valid_Credentials"/>
+          <include name="Check_Blank_Username"/>
+          <include name="Check_Blank_Password"/>
+          <include name="Initalization"/>
+          <include name="Check_InValid_User_Name"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- ESAF.Portal.TestCases.ESAF_LoginTestCase -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->
