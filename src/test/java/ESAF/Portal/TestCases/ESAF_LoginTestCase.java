@@ -13,10 +13,8 @@ public class ESAF_LoginTestCase extends Base
 {
 
 	ESAF_LoginPage login_page;
-	//ExtentTest test;
 	
 	@BeforeMethod
-	//@Test(priority = 0)
 	public void Initalization() throws Exception 
 	{
 		launchBrowser();
