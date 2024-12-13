@@ -3,16 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="ESAF.Portal.TestCases.ESAF_LoginTestCase">
+      <class name="ESAF.Portal.TestCases.ESAF_Agent_ManagementTestCase">
         <methods>
-          <include name="Check_Valid_Credentials"/>
-          <include name="Check_Blank_Username"/>
-          <include name="Check_Blank_Password"/>
-          <include name="Initalization"/>
-          <include name="Check_InValid_User_Name"/>
           <include name="tearDown"/>
+          <include name="Agent"/>
+          <include name="Initalization"/>
         </methods>
-      </class> <!-- ESAF.Portal.TestCases.ESAF_LoginTestCase -->
+      </class> <!-- ESAF.Portal.TestCases.ESAF_Agent_ManagementTestCase -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
