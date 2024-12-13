@@ -196,6 +196,7 @@ public class Utility {
 		return isDisplayed;
 	}
 
+	/*
 	// Print Message
 	public static void print(WebElement Print, String cat, Integer no) 
 	{
@@ -278,6 +279,93 @@ public class Utility {
 	    HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
 	}
 
+	
+	
+	
+	
+	*/
+	
+	 // URL Checking method
+    @SuppressWarnings("deprecation")
+    public void checkUrl() {
+        String url = "";
+        HttpURLConnection huc = null;
+        int respCode;
+
+        try {
+            // Disable SSL validation (for self-signed certificates, etc.)
+            disableSSLValidation();
+
+            // Locate all links on the sidebar
+            List<WebElement> links = driver.findElements(By.xpath("//div[@id='sidebar-nav']//a[@href]"));
+
+            for (WebElement link : links) {
+                url = link.getAttribute("href");
+
+                if (url != null && url.endsWith(".aspx")) {
+                    try {
+                        // Open HTTP connection
+                        huc = (HttpURLConnection) (new URL(url).openConnection());
+
+                        // Set timeouts for connection and reading
+                        huc.setConnectTimeout(10000); // 10 seconds for connection
+                        huc.setReadTimeout(15000);   // 15 seconds for reading data
+
+                        // Use GET request
+                        huc.setRequestMethod("GET");
+
+                        // Connect to the URL
+                        huc.connect();
+
+                        // Get response code
+                        respCode = huc.getResponseCode();
+
+                        // Check the response code and log accordingly
+                        if (respCode >= 400) {
+                            System.out.println(url + " :- is a broken link with response code: " + respCode);
+                        } else {
+                            System.out.println(url + " :- is a valid link with response code: " + respCode);
+                        }
+                    } catch (IOException e) {
+                        // Log the exception and proceed with the next URL
+                        System.out.println("IOException while checking URL: " + url + " - " + e.getMessage());
+                    } finally {
+                        if (huc != null) {
+                            huc.disconnect();
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            // Log any other exceptions during the URL validation process
+            System.out.println("Exception during URL validation: " + e.getMessage());
+        }
+    }
+
+    // Method to disable SSL validation (for testing purposes with self-signed certificates)
+    private void disableSSLValidation() throws Exception {
+        TrustManager[] trustAllCerts = new TrustManager[]{
+            new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() {
+                    return null; // No accepted issuers
+                }
+
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+            }
+        };
+
+        // Set SSLContext to accept all certificates
+        SSLContext sc = SSLContext.getInstance("TLS");
+        sc.init(null, trustAllCerts, new java.security.SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true); // Accept all hostnames
+    }
+
+	
 	
 	
 	
