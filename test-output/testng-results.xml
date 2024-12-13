@@ -1,25 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="5" passed="5" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-12-12T15:16:26 IST" name="Default suite" finished-at="2024-12-12T15:16:59 IST" duration-ms="33553">
+  <suite started-at="2024-12-13T18:59:23 IST" name="Default suite" finished-at="2024-12-13T19:00:05 IST" duration-ms="41463">
     <groups>
     </groups>
-    <test started-at="2024-12-12T15:16:26 IST" name="Default test" finished-at="2024-12-12T15:16:59 IST" duration-ms="33553">
-      <class name="ESAF.Portal.TestCases.ESAF_Agent_ManagementTestCase">
-        <test-method is-config="true" signature="Initalization()[pri:0, instance:ESAF.Portal.TestCases.ESAF_Agent_ManagementTestCase@131774fe]" started-at="2024-12-12T15:16:26 IST" name="Initalization" finished-at="2024-12-12T15:16:30 IST" duration-ms="4369" status="PASS">
+    <test started-at="2024-12-13T18:59:23 IST" name="Default test" finished-at="2024-12-13T19:00:05 IST" duration-ms="41463">
+      <class name="ESAF.Portal.TestCases.ESAF_LoginTestCase">
+        <test-method is-config="true" signature="Initalization()[pri:0, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:23 IST" name="Initalization" finished-at="2024-12-13T18:59:28 IST" duration-ms="5049" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Initalization -->
-        <test-method signature="Agent()[pri:0, instance:ESAF.Portal.TestCases.ESAF_Agent_ManagementTestCase@131774fe]" started-at="2024-12-12T15:16:30 IST" name="Agent" finished-at="2024-12-12T15:16:59 IST" duration-ms="28688" status="PASS">
+        <test-method signature="Check_InValid_Password()[pri:1, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:28 IST" name="Check_InValid_Password" finished-at="2024-12-13T18:59:29 IST" duration-ms="693" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Agent -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:ESAF.Portal.TestCases.ESAF_Agent_ManagementTestCase@131774fe]" started-at="2024-12-12T15:16:59 IST" name="tearDown" finished-at="2024-12-12T15:16:59 IST" duration-ms="446" status="PASS">
+        </test-method> <!-- Check_InValid_Password -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:29 IST" name="tearDown" finished-at="2024-12-13T18:59:30 IST" duration-ms="325" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- ESAF.Portal.TestCases.ESAF_Agent_ManagementTestCase -->
+        <test-method is-config="true" signature="Initalization()[pri:0, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:30 IST" name="Initalization" finished-at="2024-12-13T18:59:32 IST" duration-ms="2706" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Initalization -->
+        <test-method signature="Check_Blank_Username()[pri:2, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:32 IST" name="Check_Blank_Username" finished-at="2024-12-13T18:59:37 IST" duration-ms="4897" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Check_Blank_Username -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:37 IST" name="tearDown" finished-at="2024-12-13T18:59:38 IST" duration-ms="422" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="Initalization()[pri:0, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:38 IST" name="Initalization" finished-at="2024-12-13T18:59:39 IST" duration-ms="1851" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Initalization -->
+        <test-method signature="Check_Blank_Password()[pri:3, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:39 IST" name="Check_Blank_Password" finished-at="2024-12-13T18:59:46 IST" duration-ms="6199" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Check_Blank_Password -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:46 IST" name="tearDown" finished-at="2024-12-13T18:59:46 IST" duration-ms="411" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="Initalization()[pri:0, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:46 IST" name="Initalization" finished-at="2024-12-13T18:59:48 IST" duration-ms="2157" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Initalization -->
+        <test-method signature="Check_InValid_User_Name()[pri:4, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:48 IST" name="Check_InValid_User_Name" finished-at="2024-12-13T18:59:54 IST" duration-ms="5797" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Check_InValid_User_Name -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:54 IST" name="tearDown" finished-at="2024-12-13T18:59:54 IST" duration-ms="395" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="Initalization()[pri:0, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:54 IST" name="Initalization" finished-at="2024-12-13T18:59:56 IST" duration-ms="1707" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Initalization -->
+        <test-method signature="Check_Valid_Credentials()[pri:5, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T18:59:56 IST" name="Check_Valid_Credentials" finished-at="2024-12-13T19:00:05 IST" duration-ms="8409" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Check_Valid_Credentials -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ESAF.Portal.TestCases.ESAF_LoginTestCase@158d2680]" started-at="2024-12-13T19:00:05 IST" name="tearDown" finished-at="2024-12-13T19:00:05 IST" duration-ms="344" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- ESAF.Portal.TestCases.ESAF_LoginTestCase -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
