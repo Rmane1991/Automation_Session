@@ -18,6 +18,7 @@ public class ESAF_LoginTestCase extends Base
 	public void Initalization() throws Exception 
 	{
 		launchBrowser();
+		System.out.println("Done");
 		login_page = new ESAF_LoginPage(driver);
 		//TextFileLogger.initializeLogger("LoginPage_TestCase");
 	}
