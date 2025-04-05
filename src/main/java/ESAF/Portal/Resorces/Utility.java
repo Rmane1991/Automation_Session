@@ -28,6 +28,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -57,6 +58,230 @@ public class Utility {
 		act = new Actions(driver);
 	}
 
+	
+	public static String generateRandomRoleName() 
+	{
+        String[] roles = {"Admin", "User", "Manager", "Developer", "Tester", "Analyst", "Designer"};
+        
+        Random random = new Random();
+        int index = random.nextInt(roles.length);
+        
+        int randomNumber = 1000 + random.nextInt(9000); // Generates a number between 1000 and 9999
+        
+        return roles[index] + "" + randomNumber;
+    }
+	
+	public void CorporateBcdropdownchk(String option)	
+	{
+		List<WebElement> Dropdown  = driver.findElements (By.xpath("//div[@id='subPages28']"));
+		
+		if (Dropdown.isEmpty()) 
+		{
+		    System.out.println("Element not found!");
+		    
+		} 
+		
+		else
+		{
+			
+		for (WebElement element : Dropdown)
+		{
+			String optionText = element.getText();
+			System.out.println(optionText);
+			
+           if (optionText.contains(option))
+           {
+        	   
+        	   WebElement DrpDwn = driver.findElement(By.linkText(option));
+				 //System.out.println(element.getText());
+        	      DrpDwn.click();
+        	        System.out.println("Clicked: " + option);
+		                
+		     }
+           else {
+        	   System.out.println("No data found");
+           }
+	      }
+	   }	
+	}	
+	
+	
+	
+	
+	  public void selectFromDropdown(WebElement dropdownContainerElement,
+	  WebElement txtsercharea, String searchTerm) throws InterruptedException 
+	  {
+	  dropdownContainerElement.click(); 
+	  Thread.sleep(1000); 
+	  if(isDisaplyedW(txtsercharea, 10) == true) 
+	  { 
+		  txtsercharea.clear();
+		  txtsercharea.sendKeys(searchTerm); 
+		  Thread.sleep(1000);
+		  txtsercharea.sendKeys(Keys.ENTER); 
+		  Thread.sleep(1000); 
+	  }
+	  
+	  else 
+	  { 
+		  System.out.println("Serch Area Element not displayed"); }
+	  }
+	 
+	
+	
+	public void selectFromDropdown_Exact_Name(WebElement dropdownContainerElement, WebElement txtSearchArea, String searchTerm) throws InterruptedException 
+	{
+	    dropdownContainerElement.click();
+	    Thread.sleep(1000); // Allow dropdown to appear
+
+	    if (isDisaplyedW(txtSearchArea, 5)) 
+	    {
+	        txtSearchArea.clear();
+	        txtSearchArea.sendKeys(searchTerm);
+	        Thread.sleep(500); // Wait for filtered results
+
+	        // Get all matching options
+	        List<WebElement> options = driver.findElements(By.xpath("//li[contains(@class,'select2-results__option')]"));
+
+	        for (WebElement option : options) {
+	            if (option.getText().trim().equalsIgnoreCase(searchTerm)) {  // Exact Match
+	                option.click();
+	                return; // Exit after selecting the correct option
+	            }
+	        }
+
+	        System.out.println("Exact match not found for: " + searchTerm);
+	    } else {
+	        System.out.println("Search Area Element not displayed");
+	    }
+	}
+
+	
+	
+	 public static String generateGST(String pan) {
+	        if (pan == null || pan.length() != 10) {
+	            throw new IllegalArgumentException("Invalid PAN number. Must be 10 characters long.");
+	        }
+
+	        String stateCode = "27"; // Maharashtra State Code
+	        Random random = new Random();
+	        
+	        int entityCode = random.nextInt(9) + 1; // Entity Code (1-9)
+	        char checkSum = 'Z'; // Placeholder for checksum (actual calculation requires GST algorithm)
+
+	        return stateCode + pan + entityCode + checkSum;
+	    }
+	 
+	 
+	 
+	 public static String generateRandomPAN1() 
+	 {
+	        Random random = new Random();
+	        String fixedPrefix = "AASFD";
+	        StringBuilder digits = new StringBuilder();
+	        for (int i = 0; i < 4; i++) 
+	        {
+	            digits.append(random.nextInt(10));
+	        }
+	        String fixedSuffix = "C";
+	        return fixedPrefix + digits + fixedSuffix;
+	    }
+	 
+	 
+		/*
+		 * public static String generateRandomPAN1() { String letters =
+		 * "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; String digits = "0123456789";
+		 * 
+		 * Random rand = new Random(); StringBuilder pan = new StringBuilder();
+		 * 
+		 * // Generate first 3 random uppercase letters for (int i = 0; i < 3; i++) {
+		 * pan.append(letters.charAt(rand.nextInt(letters.length()))); }
+		 * 
+		 * // 4th character must be an entity type ('P' for individual, 'C' for company,
+		 * etc.) String entityTypes = "PCFHLA"; // Common entity types in PAN
+		 * pan.append(entityTypes.charAt(rand.nextInt(entityTypes.length())));
+		 * 
+		 * // 5th character (random letter, usually surname initial for individuals)
+		 * pan.append(letters.charAt(rand.nextInt(letters.length())));
+		 * 
+		 * // Generate 4 random digits for (int i = 0; i < 4; i++) {
+		 * pan.append(digits.charAt(rand.nextInt(digits.length()))); }
+		 * 
+		 * // Last character should be an uppercase letter
+		 * pan.append(letters.charAt(rand.nextInt(letters.length())));
+		 * 
+		 * return pan.toString(); }
+		 */
+
+	 
+	 
+	 public static String generateGSTFromPAN(String pan) {
+	        if (pan == null || pan.length() != 10) {
+	            throw new IllegalArgumentException("Invalid PAN number. It should be exactly 10 characters.");
+	        }
+
+	        String stateCode = "27"; // Maharashtra (Change as needed)
+	        char randomChar = (char) ('A' + new Random().nextInt(26)); // Random uppercase letter
+	        String checkCode = "Z" + randomChar; // Fixed 'Z' + random character
+
+	        return stateCode + pan + "1" + checkCode;
+	    }
+	 
+
+
+    public static boolean isValidPAN(String pan) {
+        return pan.matches("[A-Z]{5}[0-9]{4}[A-Z]"); // PAN format validation
+    }
+
+  
+	
+	public String getAlphaNumericString() {
+
+	    int n = 8;
+
+	    // choose a Character random from this String
+
+	    String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz";
+
+
+
+	    // create StringBuffer size of AlphaNumericString
+
+	    StringBuilder sb = new StringBuilder(n);
+
+
+
+	    for (int i = 0; i < n; i++) {
+
+
+
+	      // generate a random number between
+
+	      // 0 to AlphaNumericString variable length
+
+	      int index = (int) (AlphaNumericString.length() * Math.random());
+
+
+
+	      // add Character one by one in end of sb
+
+	      sb.append(AlphaNumericString.charAt(index));
+
+	    }
+
+
+
+	    return sb.toString();
+
+	    // Get and display the alphanumeric string
+
+	  }
+	
+	
+	
+	
+	
+	
 	public void pressEnter() {
 		act.sendKeys(Keys.ENTER).build().perform();
 	}
@@ -96,7 +321,7 @@ public class Utility {
 	}
 
 	public void moveToElement(WebElement ele) {
-		act.moveToElement(ele).perform();
+		act.moveToElement(ele).build().perform();
 	}
 
 	public void Dropdown(By drp_Ele, String visible) {
@@ -110,6 +335,29 @@ public class Utility {
 		dropdown.selectByVisibleText(visible);
 	}
 
+	
+	
+	public void Dropdownbytxt_String(WebElement cat, String visible) {
+	    Select dropdown = new Select(cat);
+	    boolean found = false;
+
+	    for (WebElement option : dropdown.getOptions()) {
+	        String optionText = option.getText().trim(); // Trim spaces
+	        if (optionText.equalsIgnoreCase(visible) || optionText.contains(visible)) { 
+	            dropdown.selectByVisibleText(optionText);
+	            System.out.println("Selected: " + optionText);
+	            found = true;
+	            break; 
+	        }
+	    }
+
+	    if (!found) {
+	        System.out.println("No matching option found for: " + visible);
+	    }
+	}
+	
+	
+	
 	public void Dropdownbyindex(WebElement cat, int visible) {
 		Select dropdown = new Select(cat);
 		dropdown.selectByIndex(visible);
@@ -132,18 +380,38 @@ public class Utility {
 
 		return isDisplayed;
 	}
+	
+	public void Click_Drop_Down(WebElement ele, WebElement Txt_serach, String value) {
+		ele.click();
+		Txt_serach.sendKeys(value);
+		Txt_serach.sendKeys(Keys.ENTER);
+	}
 
+	 public  String Adharno()
+	    {
+	    	int Length=12;
+	    	Random random = new Random();
+	    	StringBuilder Adhar = new StringBuilder();
+	    	for (int i=0;i<Length;i++)
+	    	{
+	    		Adhar.append((random.nextInt(12)));
+	    	}
+	    	
+			return Adhar.toString();
+	    	
+	    }
+	    
 
 	// For write message to excel with color like if (Pass-green) (Fail-red) 
 	public void writeResultToExcel(String result, int rowNumber, int columnNumber) throws IOException {
 
-		String filePath = "D:\\SOR_Data\\SOR_Test_Case.xlsx";
+		String filePath = System.getProperty("user.dir") + "\\src\\main\\java\\ESAF\\Portal\\Resorces\\Test_Data.xlsx";
 		// String filePath = "File path";
 
 		File file = new File(filePath);
 		FileInputStream fis = new FileInputStream(file);
 		Workbook workbook = new XSSFWorkbook(fis);
-		Sheet sheet = workbook.getSheetAt(0);
+		Sheet sheet = workbook.getSheetAt(4);
 
 		Row row = sheet.getRow(rowNumber);
 		if (row == null) {
@@ -368,10 +636,6 @@ public class Utility {
 	
 	
 	
-	
-	
-	
-	
 	/*
 	@SuppressWarnings("deprecation")
 	public void checkUrl(WebDriver wd) {
@@ -566,23 +830,31 @@ public class Utility {
     // Method to generate a random name
     public String generateRandomName() 
     {
-        String[] names = {"John", "Alice", "Bob", "Emma", "Raj", "Priya", "Alex", "Sara"};
+        String[] names = {"Admin", "User", "Agent", "Maximus", "Bank","Rapipay","Sarvatra"};
         //Random random = new Random();
-        return names[random.nextInt(names.length)] + "" + names[random.nextInt(names.length)];
+        return names[random.nextInt(names.length)]+ "" + names[random.nextInt(names.length)];
     }
 
     // Method to generate a random PAN number (format: ABCDE1234F)
-    public static String generateRandomPAN() {
-        //Random random = new Random();
-        StringBuilder pan = new StringBuilder();
-        for (int i = 0; i < 5; i++) {
-            pan.append((char) ('A' + random.nextInt(26))); 
-        }
-        for (int i = 0; i < 4; i++) {
-            pan.append(random.nextInt(10)); 
-        }
-        pan.append((char) ('A' + random.nextInt(26))); 
-        return pan.toString();
+    public static String generateRandomPAN() 
+    {
+        String panPrefix = "ABC"; // First three letters fixed
+        Random random = new Random();
+
+        // Generate one random letter (A-Z)
+        char fourthChar = (char) ('A' + random.nextInt(26));
+
+        // Generate one random letter (A-Z) (PAN format requires 5th letter as an alphabet)
+        char fifthChar = (char) ('A' + random.nextInt(26));
+
+        // Generate four random digits (0-9)
+        String fourDigits = String.format("%04d", random.nextInt(10000));
+
+        // Generate one random alphabet (A-Z) as the last character
+        char lastChar = (char) ('A' + random.nextInt(26));
+
+        // Construct PAN number
+        return panPrefix + fourthChar + fifthChar + fourDigits + lastChar;
     }
     
     
@@ -640,13 +912,13 @@ public class Utility {
  // Write the random name to a specific cell in an existing Excel file
     public void writeNameToExcel(int rowNum, int cellNum, String name) 
     {
-    	String filePath = "D:\\Workspace\\SOR\\src\\main\\java\\SOR_resources\\Test_Data.xlsx";
+    	String filePath = "D:\\New folder\\Automation_Session\\src\\main\\java\\ESAF\\Portal\\Resorces\\Test_Data.xlsx";
     	
         try (FileInputStream fis = new FileInputStream(filePath);
              Workbook workbook = new XSSFWorkbook(fis)) 
         {
 
-            Sheet sheet = workbook.getSheet("SOR_Login");
+            Sheet sheet = workbook.getSheet("ESAF");
             if (sheet == null) {
                 System.out.println("Sheet not found.");
                 return;
@@ -704,6 +976,22 @@ public class Utility {
                 
                 // Return the population group at the random index
                 return POPULATION_GROUPS[randomIndex];
+            }
+            
+            
+            public void scrollToElementAndClick(WebElement element)
+        	{
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("arguments[0].scrollIntoView(true);", element);
+                element.click();
+            }
+            
+            
+            public void scrollToElement(WebElement element)
+        	{
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("arguments[0].scrollIntoView(true);", element);
+               // element.click();
             }
             
             

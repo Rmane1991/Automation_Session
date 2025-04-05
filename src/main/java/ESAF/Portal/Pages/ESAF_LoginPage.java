@@ -50,8 +50,65 @@ public class ESAF_LoginPage extends Utility {
 	}
 
 	String className = this.getClass().getSimpleName();
+	
+	
+	public void Check_Valid_Credentials_Permission_Checking(String UserName, String Password) throws InterruptedException, IOException 
+	{
+		//driver.navigate().refresh();
+		Thread.sleep(2000);
+		// TextFileLogger.logMessage("Check_Valid_Credentials TestCase Start");
+		if(isAlertPresent()==true)
+		{
+			driver.switchTo().alert().accept();
+		}
+		
+		Thread.sleep(2000);
+		
+		txtusername.clear();
+		txtusername.sendKeys(UserName);
+		txtPWd.clear();
+		txtPWd.sendKeys(Password);
+		btnsubmit.click();
+		Thread.sleep(1000);
+		if (isAlertPresent() == true) {
+			if (driver.switchTo().alert().getText().contains("OTP has been sent.")) {
+				driver.switchTo().alert().accept();
+				txtOTP.sendKeys("123456");
+				btnvalidate_After_OTP.click();
+			}
 
-	public void Check_Valid_Credentials(String UserName, String Password) throws InterruptedException, IOException {
+			else if (driver.switchTo().alert().getText()
+					.contains("User Already Active. Please Try After 10 Minutes!")) {
+				driver.switchTo().alert().accept();
+
+				if ((isAlertPresent() == true)
+						&& driver.switchTo().alert().getText().contains("You Want To Logout From Other Device?")) {
+					driver.switchTo().alert().accept();
+
+					if (driver.switchTo().alert().getText().contains("OTP has been sent.")) {
+						driver.switchTo().alert().accept();
+						txtOTP.sendKeys("123456");
+						btnvalidate_After_OTP.click();
+					}
+
+					// driver.switchTo().alert().accept();
+				}
+
+				else {
+					System.err.println("User active Alert Not present");
+				}
+			}
+
+			else {
+				System.err.println("Alert Not present");
+			}
+
+		}
+	
+	}
+
+	public void Check_Valid_Credentials(String UserName, String Password) throws InterruptedException, IOException 
+	{
 		driver.navigate().refresh();
 		Thread.sleep(2000);
 		// TextFileLogger.logMessage("Check_Valid_Credentials TestCase Start");
@@ -121,13 +178,13 @@ public class ESAF_LoginPage extends Utility {
 			// ExtentReportNG.logMessage("Login Successful With Username :- " + UserName);
 		} finally {
 			if (loginSuccess) {
-				writeResultToExcel("Pass", 2, 5);
+				//writeResultToExcel("Pass", 2, 5);
 			} else {
 				ConsoleColor.printColored("Login Failed", ConsoleColor.RED);
-				writeResultToExcel("Fail", 2, 5);
+				//writeResultToExcel("Fail", 2, 5);
 
 				if (isDisaplyedW(lblblankPwd, 5)) {
-					writeResultToExcel(lblblankPwd.getText(), 2, 7);
+					//writeResultToExcel(lblblankPwd.getText(), 2, 7);
 				}
 			}
 		}
