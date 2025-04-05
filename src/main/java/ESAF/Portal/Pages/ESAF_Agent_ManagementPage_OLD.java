@@ -13,10 +13,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ESAF.Portal.Resorces.Utility;
 
-public class ESAF_Agent_ManagementPage extends Utility {
+public class ESAF_Agent_ManagementPage_OLD extends Utility {
 	WebDriver driver;
 
-	public ESAF_Agent_ManagementPage(WebDriver driver) 
+	public ESAF_Agent_ManagementPage_OLD(WebDriver driver) 
 	{
 		super(driver);
 		this.driver = driver;
