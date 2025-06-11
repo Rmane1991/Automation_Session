@@ -27,6 +27,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.languagetool.JLanguageTool;
+import org.languagetool.language.AmericanEnglish;
+import org.languagetool.rules.RuleMatch;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -58,6 +61,77 @@ public class Utility {
 		act = new Actions(driver);
 	}
 
+	
+	
+	@SuppressWarnings("deprecation")
+	public void checkListLineTextForSpellingMistakes() {
+	    try {
+	        // Find all <a> elements that contain <i class='fa fa-arrow-right'>
+	        List<WebElement> listTextElements = driver.findElements(
+	            By.xpath("//a[i[@class='fa fa-arrow-right']]")
+	        );
+
+	        // Setup LanguageTool
+	        JLanguageTool langTool = new JLanguageTool(new AmericanEnglish());
+
+	        if (listTextElements.isEmpty()) {
+	            System.out.println("⚠️ No matching <a> elements found containing the right icon.");
+	            return;
+	        }
+
+	        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+	        for (int i = 0; i < listTextElements.size(); i++) {
+	            WebElement element = listTextElements.get(i);
+
+	            // Get text from the <a> tag
+	            String text = (String) js.executeScript("return arguments[0].textContent;", element);
+	            text = text != null ? text.trim() : "";
+
+	            if (text.isEmpty()) {
+	                System.out.println("⚠️ Element " + (i + 1) + " is empty. Skipping...");
+	                System.out.println("🔍 Outer HTML: " + element.getAttribute("outerHTML")); // Debug info
+	                continue;
+	            }
+
+	            // Run spell check
+	            List<RuleMatch> matches = langTool.check(text);
+
+	            if (!matches.isEmpty()) {
+	                System.out.println("📄 Text " + (i + 1) + ": " + text);
+	                System.out.println("─────────────────────────────────────");
+
+	                System.out.println("❌ Spelling mistakes found:");
+	                for (RuleMatch match : matches) {
+	                    String wrong = text.substring(match.getFromPos(), match.getToPos());
+	                    List<String> suggestions = match.getSuggestedReplacements();
+
+	                    System.out.println("🔴 Word: " + wrong);
+	                    if (!suggestions.isEmpty()) {
+	                        System.out.println("💡 Suggestion: " + suggestions.get(0));
+	                    }
+	                    System.out.println("-------------------------");
+	                }
+
+	                System.out.println("\n============================\n");
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public static String generateRandomRoleName() 
 	{
@@ -235,52 +309,32 @@ public class Utility {
 
   
 	
-	public String getAlphaNumericString() {
+	public String getAlphaNumericString() 
+	{
 
-	    int n = 8;
-
+		int n = 8;
 	    // choose a Character random from this String
-
 	    String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz";
-
-
-
 	    // create StringBuffer size of AlphaNumericString
 
 	    StringBuilder sb = new StringBuilder(n);
-
-
-
 	    for (int i = 0; i < n; i++) {
-
-
 
 	      // generate a random number between
 
 	      // 0 to AlphaNumericString variable length
 
 	      int index = (int) (AlphaNumericString.length() * Math.random());
-
-
-
 	      // add Character one by one in end of sb
 
 	      sb.append(AlphaNumericString.charAt(index));
 
 	    }
-
-
-
 	    return sb.toString();
 
 	    // Get and display the alphanumeric string
 
 	  }
-	
-	
-	
-	
-	
 	
 	public void pressEnter() {
 		act.sendKeys(Keys.ENTER).build().perform();
@@ -358,7 +412,8 @@ public class Utility {
 	
 	
 	
-	public void Dropdownbyindex(WebElement cat, int visible) {
+	public void Dropdownbyindex(WebElement cat, int visible) 
+	{
 		Select dropdown = new Select(cat);
 		dropdown.selectByIndex(visible);
 

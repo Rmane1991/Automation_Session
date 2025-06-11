@@ -40,6 +40,14 @@
 			<scope>test</scope>
 		</dependency>
 
+		
+		<dependency>
+			<groupId>org.languagetool</groupId>
+			<artifactId>language-en</artifactId>
+			<version>6.3</version> <!-- Use latest if needed -->
+		</dependency>
+
+
 		<!-- WebDriverManager -->
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
